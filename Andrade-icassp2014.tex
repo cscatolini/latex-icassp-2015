@@ -184,7 +184,7 @@ In addition to relevant parameters initialisation, priors are used to integrate 
 %\end{enumerate}
 
 %\subsection{Manual annotation}
-It is expected that involving the user in the transcription process should improve the overall transcription performances. In this paper, we evaluate a rather simple interaction process where the user has manually transcribed  before hand the first ten seconds of each processed musical recording. This partial transcription is then used to create initial templates of the spectral envelope $P(z|i,t)$ for each note $i$. If a note appears more than once in these first ten seconds, the template is obtained by averaging all occurrences of this given note for each kernel $z \in \left[1,Z\right]$. The transcription algorithm BHAD is then run as in the unsupervised case but with an improved initial estimation of, at least, some of the spectral envelopes $P(z|i,t)$.
+It is expected that involving the user in the transcription process should improve the overall transcription performances. In this paper, we evaluate a rather simple interaction process where the user has manually transcribed  beforehand the first ten seconds of each processed musical recording. This partial transcription is then used to create initial templates of the spectral envelope $P(z|i,t)$ for each note $i$. If a note appears more than once in these first ten seconds, the template is obtained by averaging all occurrences of this given note for each kernel $z \in \left[1,Z\right]$. The transcription algorithm BHAD is then run as in the unsupervised case but with an improved initial estimation of, at least, some of the spectral envelopes $P(z|i,t)$.
 
 \subsection{Strategies for initialisation of the non-annotated notes}
 
@@ -294,11 +294,11 @@ The results of these tests are shown in Figure \ref{fig:fxt-nobrake}, where the 
  NO  & 67.68 &	 \textbf{68.38} &	 65.00 &	 43.68 \\
  S   & 73.91 &     \textbf{75.07} &	 71.44 &	 52.07 \\
  R   & 66.46 &	 \textbf{68.28} &	 64.13 &	 47.05 \\
- SR  & 69.51 &	 \textbf{72.30} &	 67.60 &	 52.35 \\ \hline
+ RS  & 69.51 &	 \textbf{72.30} &	 67.60 &	 52.35 \\ \hline
  B   & 77.85 &	 \textbf{78.63} &	 75.88 &	 50.90 \\
- BS  & 74.64 &	 \textbf{76.54} &	 72.47 &	 45.68 \\
- BR  & 77.39 &	 \textbf{79.49} &	 73.89 &	 50.79 \\
- BSR & 74.85 &	 \textbf{77.02} &	 70.52 & 	 47.00  \\\thickhline
+ SB  & 74.64 &	 \textbf{76.54} &	 72.47 &	 45.68 \\
+ RB  & 77.39 &	 \textbf{79.49} &	 73.89 &	 50.79 \\
+ RSB & 74.85 &	 \textbf{77.02} &	 70.52 & 	 47.00  \\\thickhline
 \end{tabular}
 \caption{Mean F-Measure for the semi-guided and unsupervised approaches, considering the different initialisations of the non-annotated notes (Slope, Copy and Interpolation) and the different options of the BHAD algorithm : sparseness (S) and resemblance (R) priors, convergence rate parameter (brake B); Option NO refers to no prior and no brake.}
 \label{tab:init}
@@ -324,9 +324,9 @@ Similarly to the previous experiment, the results are given in Table \ref{tab:br
 \textbf{Option} & \textbf{No brake} & \multicolumn{3}{c}{\textbf{Brake annotated notes ($\beta_0=0$)}} \\\thickhline
 & $\beta_{0,1}=0$ & $\beta_1=0.1$ & $\beta_1=1$ & $\beta_1=10$ \\\hline
 B	& \textbf{68,38} &	68,25	& 66,43 &	 62,93 \\
-BS	& \textbf{75,07} &	 74,84 	& 74,29 &	 72,74 \\
-BR	& 68,28 & 	 68,53 	& \textbf{69,20} & 	 69,16 \\
-BSR	& 72,30 &	 72,35 	& 72,53 &	 \textbf{72,66} \\\thickhline
+SB	& \textbf{75,07} &	 74,84 	& 74,29 &	 72,74 \\
+RB	& 68,28 & 	 68,53 	& \textbf{69,20} & 	 69,16 \\
+RSB	& 72,30 &	 72,35 	& 72,53 &	 \textbf{72,66} \\\thickhline
 \end{tabular}
   \centerline{(a) Brake coefficient only for annotated notes.}
 \\
