@@ -138,7 +138,7 @@ P_h(f|i,t) & = \sum_z P_h(z|i,t)P_h(f-i|z).
 %		   & = \sum_z P_h(z|i,t)P_h(f-i|z)
 %\end{array}
 %\end{equation}
-In this last equation, an essentiel property of the CQT is exploited: a pitch modulation can be seen as a frequency shifting of the partials, and the kernel $P_h(f|z,i)$ can be deduced from a single template $P_h(\mu|z)$.
+In this last equation, an essential property of the CQT is exploited: a pitch modulation can be seen as a frequency shifting of the partials, and the kernel $P_h(f|z,i)$ can be deduced from a single template $P_h(\mu|z)$.
 All parameters, except for the fixed kernels $P_h(\mu|z)$, are estimated due to the Expectation-Maximization (EM) algorithm. By mean of a threshold applied on the time-frequency activations of harmonic spectra $P_h(i,t)$, it is then possible to estimate a MIDI pitch activations $\hat{A}(n,t)$ ($n$ representing MIDI notes) and thus address the problem of multipitch estimation.
 %In this last equation it's used the main advantage of working with the CQT: a pitch modulation can be seen as a frequency shifting of the partials: $P_h(f|z,i) = P_h(f-i|z)$.
 
@@ -184,7 +184,7 @@ In addition to relevant parameters initialisation, priors are used to integrate 
 %\end{enumerate}
 
 %\subsection{Manual annotation}
-It is expected that involving the user in the transcription process should improve the overall transcription performances. In this paper, we evaluate a rather simple interaction process where the user has manually transcribed  beforehand the first ten seconds of each processed musical recording. This partial transcription is then used to create initial templates of the spectral envelope $P(z|i,t)$ for each pitch $i$. If a pitch appears more than once in these first ten seconds, the template is obtained by averaging all occurrences of this given pitch for each kernel $z \in \left[1,Z\right]$. The transcription algorithm BHAD is then run as in the unsupervised case but with an improved initial estimation of, at least, some of the spectral envelopes $P(z|i,t)$.
+It is expected that involving the user in the transcription process should improve the overall transcription performance. In this paper, we evaluate a rather simple interaction process where the user has manually transcribed  beforehand the first ten seconds of each processed musical recording. This partial transcription is then used to create initial templates of the spectral envelope $P(z|i,t)$ for each pitch $i$. If a pitch appears more than once in these first ten seconds, the template is obtained by averaging all occurrences of this given pitch's spectral envelope for each kernel $z \in \left[1,Z\right]$. The transcription algorithm BHAD is then run as in the unsupervised case but with an improved initial estimation of, at least, some of the spectral envelopes $P(z|i,t)$.
 
 \subsection{Strategies for initialisation of the non-annotated pitchs}
 
@@ -192,14 +192,14 @@ Unless if the music is highly repetitive, the pitchs present in the first ten se
 
 \begin{enumerate}
 \item Keep the slope initialisation as in the original BHAD model: in this case we just consider the templates if they can be obtained from the learning phase, otherwise the spectral coefficients are initialised as a descending slope in $z$;
-\item Copy the previous pitch template: the template of a given pitch $i_n$ is repeated for all subsequent pitchs $i \in [i_{n+1}, i_{p-1}]$ until another template is found (pitch $i_p$);
-\item Interpolate neighbour pitchs' templates: the template for the pitchs $i \in [i_{n+1}, i_{p-1}]$ are obtained by linearly interpolating the templates of the pitchs $i_n$ and $i_p$ (on a dB scale).
+\item Copy the previous pitch's template: the spectral envelope template of a given pitch $i_n$ is repeated for all subsequent pitchs $i \in [i_{n+1}, i_{p-1}]$ until another template is found (pitch $i_p$);
+\item Interpolate neighbour pitchs' templates: the spectral envelope templates for the pitchs $i \in [i_{n+1}, i_{p-1}]$ are obtained by linearly interpolating the templates of the pitchs $i_n$ and $i_p$ (on a dB scale).
 \end{enumerate}
 
 \subsection{Strategies for controlling the convergence rate of the annotated pitchs vs. non-annotated pitchs}
 
 The goal of the learning phase using the partial user annotation is to improve the initial estimation of the spectral envelopes. If envelope parameters are well initialised, it is probable that their value are not very far from the ideal envelope templates.  It is then desirable to exploit this information to control the convergence rate of this parameter compared to other parameters of the models which are less well initialised. With BHAD, the convergence rate is controlled using the concept of brake (see section \ref{sec:init-prior} or \cite{Fuentes2012_EUSIPCO}). In the original BHAD model the convergence rate coefficient is equally applied to all pitchs.  %However, even tough we have realized a better initialisation for the notes present in the learning phase, the other notes may not be as well initialised, for example, if we keep slope initialisation.
-We suggest a modification of the BHAD model where the convergence rate coefficient $\beta_{brake}(n)$ depends on the pitch, so we can apply a stronger brake for the templates of the pitchs which were actually learned:
+We suggest a modification of the BHAD model where the convergence rate coefficient $\beta_{brake}(n)$ depends on the pitch, so we can apply a stronger brake in the spectral envelopes templates of the pitchs which were actually learned:
 
 \begin{equation}
 \beta_{brake}(n) = \left\{
@@ -307,7 +307,7 @@ The results of these tests are shown in Figure \ref{fig:fxt-nobrake}, where the 
 
 The results in Table \ref{tab:init} show that the use of the semi-guided approach with slope initialisation of the non-annotated pitchs increases the mean F-measure between $1\%$ and $3\%$. This table also shows that, for the copy initialisation the F-measure decreases around $2\%$ or even $4\%$ when compared to the unsupervised approach. This degradation of the results is even more important in the case of the interpolated initialisation. We note that, in general, the gain in terms of F-measure is greater for the case where the brakes are used for guiding the convergence of the parameters.
 
-Using copied spectral envelope templates as initialisation for non-annotated pitchs introduces a bias in the estimation task by assuming that all the pitchs are present. As the algorithm starts with a calculated spectral envelope instead of a simple slope in $z$, it causes the algorithm to assume that these pitchs are present (smaller precision when compared to the unsupervised approach). Templates obtained by interpolating adjacent pitchs presented the worst results since in this case besides introducing the copy initialisation bias, the templates were not really learned as in the previous case.
+Using copied spectral envelope templates as initialisation for non-annotated pitchs introduces a bias in the estimation task by assuming that all the pitchs are present. As the algorithm starts with a calculated spectral envelope instead of a simple slope in $z$, it causes the algorithm to assume that these pitchs are present (smaller precision when compared to the unsupervised approach). Templates obtained by interpolating adjacent pitchs' spectral envelope templates presented the worst results since in this case besides introducing the copy initialisation bias, the templates were not really learned as in the previous case.
 
 Regarding the different strategies for controlling the convergence rate of the annotated pitchs, we tested two cases:
 
