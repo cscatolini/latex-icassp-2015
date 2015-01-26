@@ -36,7 +36,7 @@
 \maketitle
 %
 \begin{abstract}
-In this paper we investigate the merit of partial user annotation for music transcription using a PLCA-based model. The original algorithm, called Blind Harmonic Adaptive Decomposition (BHAD), provides an estimation of the polyphonic pitch content of the input signal in an entirely unsupervised manner. In this paper, we study how the performances of the BHAD algorithm can be further improved by involving a user by means of a partial annotation. This user input allows for a better model initialisation with adapted or learned spectral envelope models. Furthermore, it is studied how a fine control of the convergence rate of some parameters can better exploit this additional information. It is then shown that this partial annotation can bring an improvement of up to 3\% on the transcription of the remaining file.
+In this paper one investigates the merit of partial user annotation for music transcription using a PLCA-based model. The original algorithm, called Blind Harmonic Adaptive Decomposition (BHAD), provides an estimation of the polyphonic pitch content of the input signal in an entirely unsupervised manner. In this paper, one studies how the performances of the BHAD algorithm can be further improved by involving a user by means of a partial annotation. This user input allows for a better model initialisation with adapted or learned spectral envelope models. Furthermore, it is studied how a fine control of the convergence rate of some parameters can better exploit this additional information. It is then shown that this partial annotation can bring an improvement of up to 3\% on the transcription of the remaining file.
 \end{abstract}
 %
 \begin{keywords}
@@ -84,7 +84,7 @@ The original approach is entirely unsupervised as most approaches in this framew
 
 \vspace{0.1cm}
 
-In this paper, we present how the performance of the BHAD algorithm can be further improved by involving a user by means of a partial annotation (e.g. the user provides the transcription for the first ten seconds of the excerpt). This partial annotation allows for a better model initialisation with adapted or learned spectral envelope models. Furthermore, it is presented how a fine control of the convergence rate of some parameters can better exploit this additional information. It is then shown that this partial annotation can bring an improvement of up to 3\% on the transcription of the remaining file.  %Finally, using a reassigned CQT, which has better time-frequency resolution, the algorithm performances can improved even further.
+In this paper, one presents how the performance of the BHAD algorithm can be further improved by involving a user by means of a partial annotation (e.g. the user provides the transcription for the first ten seconds of the excerpt). This partial annotation allows for a better model initialisation with adapted or learned spectral envelope models. Furthermore, it is presented how a fine control of the convergence rate of some parameters can better exploit this additional information. It is then shown that this partial annotation can bring an improvement of up to 3\% on the transcription of the remaining file.  %Finally, using a reassigned CQT, which has better time-frequency resolution, the algorithm performances can improved even further.
 
 %Main contributions compared to BHAD:
 %\begin{enumerate}
@@ -93,7 +93,7 @@ In this paper, we present how the performance of the BHAD algorithm can be furth
 	%\item Improved performances with a reassigned CQT
 %\end{enumerate}
 \vspace{0.1cm}
-The paper is organised as follows. In the following section, we recall the main concepts of the original BHAD model. Three strategies for semi-guided transcription are then presented in section \ref{sec:semiguided}. Experiments and results are given and discussed in section \ref{sec:expres} and some conclusions suggested in section \ref{sec:conc}.
+The paper is organised as follows. In the following section, one recalls the main concepts of the original BHAD model. Three strategies for semi-guided transcription are then presented in section \ref{sec:semiguided}. Experiments and results are given and discussed in section \ref{sec:expres} and some conclusions suggested in section \ref{sec:conc}.
 
 \vspace{0.3cm}
 
@@ -106,7 +106,7 @@ In BHAD, the absolute value of the normalised constant-Q transform (CQT) of a si
 \begin{equation}
 P(f,t) = P(c=h)P_h(f,t)+P(c=n)P_n(f,t),
 \end{equation}
-the notation $P_h(.)$ and $P_n(.)$ being used for $P(.|c=h)$ and $P(.|c=n)$.  We recall below the main concepts of the harmonic signal model. However, since the model of the noise component is left unchanged in this work, the reader is referred to \cite{Fuentes2012_EUSIPCO} for further details.
+the notation $P_h(.)$ and $P_n(.)$ being used for $P(.|c=h)$ and $P(.|c=n)$.  One recalls as follows the main concepts of the harmonic signal model. However, since the model of the noise component is left unchanged in this work, the reader is referred to \cite{Fuentes2012_EUSIPCO} for further details.
 %\subsection{Noise signal}
 
 %The noise signal is modeled as the convolution of a narrow-band window and a noise time-frequency distribution:
@@ -125,7 +125,7 @@ At time $t$, the polyphonic component $P_h(f,t)$ is modeled as a weighted sum of
 P_h(f,t) = \sum_i P_h(i,t)P_h(f|i,t).
 \end{equation}
 
-$P_h(i,t)$ and $P_h(f|i,t)$ respectively represent the energy and the normalised harmonic spectra of a musical note of pitch $i$ at time $t$. We further model $P_h(f|i,t)$ as a linear combination of $Z$ fixed narrow-band harmonic kernels, sharing the same fundamental frequency $i$ and having energy concentrated on the $z^{th}$ harmonic:
+$P_h(i,t)$ and $P_h(f|i,t)$ respectively represent the energy and the normalised harmonic spectra of a musical note of pitch $i$ at time $t$. One further models $P_h(f|i,t)$ as a linear combination of $Z$ fixed narrow-band harmonic kernels, sharing the same fundamental frequency $i$ and having energy concentrated on the $z^{th}$ harmonic:
 %$P_h(i,t)$ is the note's energy at time $t$ and $P_h(f|i,t)$ is its normalised harmonic spectrum. Each harmonic spectrum is decomposed as a linear combination of $Z$ narrow-band harmonic kernels sharing the same fundamental frequency $i$ and having energy concentrated on the $z^{th}$ harmonic $P_h(f|z,i)$, weighted by its spectral envelope $P_h(z|i,t)$:
 
 \begin{align}
@@ -185,14 +185,14 @@ In addition to relevant parameters initialisation, priors are used to integrate 
 %\end{enumerate}
 
 %\subsection{Manual annotation}
-It is expected that involving the user in the transcription process should improve the overall transcription performances. In this paper, we evaluate a rather simple interaction process where the user has manually transcribed beforehand the first ten seconds of each processed musical recording. This partial transcription is then used to create initial templates of the spectral envelope $P(z|i,t)$ for each note of pitch $i$. If a note appears more than once in these first ten seconds, the template is obtained by averaging all occurrences of this given note for each kernel $z \in \left[1,Z\right]$. The transcription algorithm BHAD is then run as in the unsupervised case but with an improved initial estimation of, at least, some of the spectral envelopes $P(z|i,t)$.
+It is expected that involving the user in the transcription process should improve the overall transcription performances. In this paper, one evaluates a rather simple interaction process where the user has manually transcribed beforehand the first ten seconds of each processed musical recording. This partial transcription is then used to create initial templates of the spectral envelope $P(z|i,t)$ for each note of pitch $i$. If a note appears more than once in these first ten seconds, the template is obtained by averaging all occurrences of this given note for each kernel $z \in \left[1,Z\right]$. The transcription algorithm BHAD is then run as in the unsupervised case but with an improved initial estimation of, at least, some of the spectral envelopes $P(z|i,t)$.
 
 \subsection{Strategies for initialisation of the non-annotated notes}
 
-Except when the music is highly repetitive, the note present in the first ten seconds only represent a subset of all notes played in the musical recording. The envelope templates of the remaining notes cannot be learned but still have to be initialised to some value before the BHAD algorithm is run. We evaluate below three strategies for initialising the templates of the remaining notes:
+Except when the music is highly repetitive, the note present in the first ten seconds only represent a subset of all notes played in the musical recording. The envelope templates of the remaining notes cannot be learned but still have to be initialised to some value before the BHAD algorithm is run. One evaluates below three strategies for initialising the templates of the remaining notes:
 
 \begin{enumerate}
-\item Keep the slope initialisation as in the original BHAD model: in this case we just consider the templates if they can be obtained from the learning phase, otherwise the spectral coefficients are initialised as a descending slope in $z$;
+\item Keep the slope initialisation as in the original BHAD model: in this case one just considers the templates if they can be obtained from the learning phase, otherwise the spectral coefficients are initialised as a descending slope in $z$;
 \item Copy the previous note template: the template of a note of given pitch $i_n$ is repeated for all subsequent notes of pitch $i \in [i_{n+1}, i_{p-1}]$ until another template is found (note of pitch $i_p$);
 \item Interpolate neighbour notes' templates: the template for the notes of pitch $i \in [i_{n+1}, i_{p-1}]$ is obtained by linearly interpolating the templates of the notes of pitch $i_n$ and $i_p$ (on a dB scale).
 \end{enumerate}
@@ -200,7 +200,7 @@ Except when the music is highly repetitive, the note present in the first ten se
 \subsection{Strategies for controlling the convergence rate of the annotated notes vs. non-annotated notes}
 
 The goal of the learning phase using the partial user annotation is to improve the initial estimation of the spectral envelopes. If envelope parameters are well initialised, it is probable that their value are not very far from the ideal envelope templates.  It is then desirable to exploit this information to control the convergence rate of this parameter compared to other parameters of the models which are less well initialised. With BHAD, the convergence rate is controlled using the concept of brake (see section \ref{sec:init-prior} or \cite{Fuentes2012_EUSIPCO}). In the original BHAD model the convergence rate coefficient is equally applied to all note's templates to slow down their convergence compared to the other parameters of the model.  %However, even tough we have realized a better initialisation for the notes present in the learning phase, the other notes may not be as well initialised, for example, if we keep slope initialisation.
-We suggest a modification of the BHAD model where the convergence rate coefficient $\beta_{brake}(n)$ now depends on the notes, so we can apply a stronger brake for the templates of the notes which were actually learned:
+One suggests a modification of the BHAD model where the convergence rate coefficient $\beta_{brake}(n)$ now depends on the notes, so one can apply a stronger brake for the templates of the notes which were actually learned:
 
 \begin{equation}
 \beta_{brake}(n) = \left\{
@@ -308,7 +308,7 @@ The table gathers the results obtained \textit{a posteriori}, i.e., with a choic
 \end{table}
 
 
-The results in Table \ref{tab:init} show that the use of the semi-guided approach with slope initialisation of the non-annotated notes increases the mean F-measure between $1\%$ and $3\%$. This table also shows that, for the copy initialisation the F-measure decreases around $2\%$ or even $4\%$ when compared to the unsupervised approach. This degradation of the results is even more important in the case of the interpolated initialisation. We note that, in general, the gain in terms of F-measure is greater for the case where the brakes are used for guiding the convergence of the parameters.
+The results in Table \ref{tab:init} show that the use of the semi-guided approach with slope initialisation of the non-annotated notes increases the mean F-measure between $1\%$ and $3\%$. This table also shows that, for the copy initialisation the F-measure decreases around $2\%$ or even $4\%$ when compared to the unsupervised approach. This degradation of the results is even more important in the case of the interpolated initialisation. One notes that, in general, the gain in terms of F-measure is greater for the case where the brakes are used for guiding the convergence of the parameters.
 
 Using copied spectral envelope templates as initialisation for non-annotated notes introduces a bias in the estimation task by assuming that all the notes are present. As the algorithm starts with a calculated spectral envelope instead of a simple slope in $z$, it causes the algorithm to assume that these notes are present (smaller precision when compared to the unsupervised approach). Templates obtained by interpolating adjacent notes presented the worst results since in this case besides introducing the copy initialisation bias, the templates were not really learned as in the previous case.
 
@@ -361,7 +361,7 @@ RSB	& 77,02 &	 77,02 &	\textbf{77,03} &	76,98 \\\thickhline
 \end{figure}
 
 
-The results in Table \ref{tab:brake}.(a) show that when we apply the brake coefficient only for the annotated notes, the improvement of the F-measure depends on the considered priors. In particular, when the resemblance prior is used we note that the results improve up to $1\%$ by using the brake coefficient for the annotated notes. However, the results in Table \ref{tab:brake}.(b) (where the brake coefficient is used for all notes) show that there is little interest to use a more restrictive convergence rate for annotated notes compared to the one used for non-annotated notes (a maximum of $0.1\%$ increase in F-measure is observed).
+The results in Table \ref{tab:brake}.(a) show that when one applies the brake coefficient only for the annotated notes, the improvement of the F-measure depends on the considered priors. In particular, when the resemblance prior is used one notices that the results improve up to $1\%$ by using the brake coefficient for the annotated notes. However, the results in Table \ref{tab:brake}.(b) (where the brake coefficient is used for all notes) show that there is little interest to use a more restrictive convergence rate for annotated notes compared to the one used for non-annotated notes (a maximum of $0.1\%$ increase in F-measure is observed).
 
 
 \section{Conclusion}
