@@ -54,9 +54,9 @@ Multipitch estimation in musical recordings has received a great deal of attenti
 superposition of the sound waves produced by all instruments in the recording. In the context of music transcription,
 multipitch extraction corresponds to the frame-by-frame estimation of all fundamental frequencies present in an audio signal.
 %As multiple notes can be played simultaneously, the signal contains several $F_0$ at a given moment.
-Two main issues arise in this estimation process :
-the superposition of the different partials of each note played simultaneously can lead to ambiguity in the case of harmonically related sounds; and the total number of notes being played simultaneously is unknown.
-Despite these difficulties, automatic multipitch estimation has many potential applications, including main melody extraction \cite{JS:SigMag2014, Durrieu2011, toosMelodyICASSP10}, cover song identification \cite{salamonVersionIDQBH-MMIR13} (detecting whether two recordings are different renditions of the same musical piece), or more generally music transcription \cite{HainsworthPhD}.
+Two main issues arise in this estimation process: (1)
+the superposition of the different partials of each note played simultaneously can lead to ambiguity in the case of harmonically related sounds; (2) the total number of notes being played simultaneously is unknown.
+Despite this difficulty, automatic multipitch estimation has many potential applications, including main melody extraction \cite{JS:SigMag2014, Durrieu2011, toosMelodyICASSP10}, cover song identification \cite{salamonVersionIDQBH-MMIR13} (detecting whether two recordings are different renditions of the same musical piece), or more generally music transcription \cite{HainsworthPhD}.
 
  %and much of the time these instruments play
 %simultaneously. A typical polyphonic music signal results from the downmixing of multiple sound sources.
@@ -67,24 +67,24 @@ Despite these difficulties, automatic multipitch estimation has many potential a
 
 \vspace{0.1cm}
 
-Several methods were proposed in the literature for multipitch estimation \cite{Christensen2009_Morgan}. A number of approaches follows an iterative estimation strategy \cite{Klapuri2008} while others will aim at jointly estimating all fundamental frequencies \cite{Davy2006, Vincent2010_IEEE, Fuentes2012_EUSIPCO}. One class of techniques, which receives a sustained interest, exploits factorization models to represent the time-frequency representation of the audio signal as a sum of basic elements, called atoms.
+Several methods are proposed in the literature for multipitch estimation \cite{Christensen2009_Morgan}. A number of approaches follows an iterative estimation strategy \cite{Klapuri2008} while others aim at jointly estimating all fundamental frequencies \cite{Davy2006, Vincent2010_IEEE, Fuentes2012_EUSIPCO}. One class of techniques, which receives a sustained interest, exploits factorization models to represent the time-frequency representation of the audio signal as a sum of basic elements, called atoms.
 %which in the most interesting case carry symbolic information.
 
 \vspace{0.1cm}
 
 A popular example of such decompositions is the non-negative matrix factorization (NMF), proposed by \cite{Lee99}, and widely used in music analysis \cite{Durrieu2011, Smaragdis03, Virtanen2008, Dessein10}.
-In a probabilistic framework, Probabilistic Latent Component Analysis (PLCA) was shown to be particularly promising for audio signal analysis \cite{Benetos11c,Smaragdis06,Smaragdis08}.
-PLCA is a probabilistic tool for non-negative data decomposition, where the time-frequency representation of an audio signal (e.g. the spectrogram $P(f,t)$) is modeled as the histogram of $J$ independent random variables $(f_j,t_j) \in \left[ 1,F \right] \times \left[ 1,T \right]$ distributed according to $P(f,t)$ where $f$ and $t$ respectively stands for frequency and time.
+In a probabilistic framework, Probabilistic Latent Component Analysis (PLCA) has particularly shown itself promising for audio signal analysis \cite{Benetos11c,Smaragdis06,Smaragdis08}.
+PLCA is a probabilistic tool for non-negative data decomposition, where the time-frequency representation of the audio signal (e.g. the spectrogram $P(f,t)$) is modeled as the histogram of $J$ independent random variables $(f_j,t_j) \in \left[ 1,F \right] \times \left[ 1,T \right]$ distributed according to $P(f,t)$ where $f$ and $t$, respectively, stand for frequency and time.
 
 \vspace{0.1cm}
 
-An algorithm called Blind Harmonic Adaptive Decomposition (BHAD) and its inherent model were presented in \cite{Fuentes2012_EUSIPCO, Fuentes2013_PhD} to better model real music signals. In this model, each musical note may present fundamental frequency and spectral envelope variations across repetitions. BHAD is an efficient algorithm and has obtained very good performances in an international evaluation campaign (ranked 2\textsuperscript{nd} in the MIREX-12 Multiple Fundamental Frequency Estimation \& Tracking task \cite{MIREX2012}).
+An algorithm called Blind Harmonic Adaptive Decomposition (BHAD) and its inherent model are presented in \cite{Fuentes2012_EUSIPCO, Fuentes2013_PhD} to better model real music signals. In this model, each musical note may present fundamental frequency and spectral envelope variations across repetitions. BHAD is an efficient algorithm and has obtained very good performances in an international evaluation campaign (ranked 2\textsuperscript{nd} in the MIREX-12 Multiple Fundamental Frequency Estimation \& Tracking task \cite{MIREX2012}).
 %It uses the absolute value of the CQT of an audio signal as the time-frequency representation and its decompositions and parameters are found using the Expectation-Maximization (EM) algorithm.
 The original approach is entirely unsupervised as most approaches in this framework which rely on prior generic information or signal models to obtain a semantically meaningful decomposition. It was shown in some controlled cases that improved performance can be obtained by integrating a learning stage or by adapting the pre-learned models using a multi-stage transcription strategy (see \cite{BenetosISMIR2014} for example) or by involving a user during the transcription process \cite{Kirchhoff13}, \cite{ozerov2012general}, \cite{BryanEtAl_2013_SourSepaOfPoly}.
 
 \vspace{0.1cm}
 
-In this paper, we have studied how the performance of the BHAD algorithm could be further improved by involving a user by means of a partial annotation (e.g. the user provides the transcription for the first ten seconds of the excerpt). This partial annotation allows for a better model initialisation with adapted or learned spectral envelope models. Furthermore, it is studied how a fine control of the convergence rate of some parameters can better exploit this additional information. It is then shown that this partial annotation can bring an improvement of up to 3\% on the transcription of the remaining file.  %Finally, using a reassigned CQT, which has better time-frequency resolution, the algorithm performances can improved even further.
+In this paper, we present how the performance of the BHAD algorithm can be further improved by involving a user by means of a partial annotation (e.g. the user provides the transcription for the first ten seconds of the excerpt). This partial annotation allows for a better model initialisation with adapted or learned spectral envelope models. Furthermore, it is presented how a fine control of the convergence rate of some parameters can better exploit this additional information. It is then shown that this partial annotation can bring an improvement of up to 3\% on the transcription of the remaining file.  %Finally, using a reassigned CQT, which has better time-frequency resolution, the algorithm performances can improved even further.
 
 %Main contributions compared to BHAD:
 %\begin{enumerate}
@@ -93,7 +93,7 @@ In this paper, we have studied how the performance of the BHAD algorithm could b
 	%\item Improved performances with a reassigned CQT
 %\end{enumerate}
 \vspace{0.1cm}
-The paper is organised as follows. In the following section, we recall the main concepts of the original BHAD model. Three strategies for semi-guided transcription are then presented in section \ref{sec:semiguided}. Experiments and results are given and discussed in section \ref{sec:expres} and some conclusions are suggested in section \ref{sec:conc}.
+The paper is organised as follows. In the following section, we recall the main concepts of the original BHAD model. Three strategies for semi-guided transcription are then presented in section \ref{sec:semiguided}. Experiments and results are given and discussed in section \ref{sec:expres} and some conclusions suggested in section \ref{sec:conc}.
 
 \vspace{0.3cm}
 
@@ -101,7 +101,7 @@ The paper is organised as follows. In the following section, we recall the main 
 \label{sec:Bhad}
 The BHAD model is briefly described in this section. The reader is referred to \cite{Fuentes2012_EUSIPCO} for further details. BHAD relies on the framework of Probabilistic Latent Component Analysis (PLCA) which is a probabilistic tool for non-negative data analysis that offers a convenient way of designing spectrogram models and introducing priors on the corresponding parameters.
 %we briefly describe here the BHAD model (it should be rather short but the concept should be understandable but the reader should be referred to Fuentes publications to fully understand. What is important is to describe all notations/concepts that will be useful later on in the paper).
-In BHAD, the absolute value of the normalized constant-Q transform (CQT) of a signal is modeled as a probability distribution $P(f,t)$. By introducing a latent variable $c$, the signal is first decomposed as the sum of a polyphonic harmonic signal ($c=h$) and a noise signal ($c=n$):
+In BHAD, the absolute value of the normalised constant-Q transform (CQT) of a signal is modeled as a probability distribution $P(f,t)$. By introducing a latent variable $c$, the signal is first decomposed as the sum of a polyphonic harmonic signal ($c=h$) and a noise signal ($c=n$):
 %A latent variable $c$ is introduced in order to decompose the absolute value of the CQT of a music signal as the sum of a polyphonic harmonic signal ($c=h$) and a noise signal ($c=n$). The notation $P_h(.)$ and $P_n(.)$ is used for $P(.|c=h)$ and $P(.|c=n)$. The time-frequency distribution is then:
 \begin{equation}
 P(f,t) = P(c=h)P_h(f,t)+P(c=n)P_n(f,t),
@@ -125,12 +125,13 @@ At time $t$, the polyphonic component $P_h(f,t)$ is modeled as a weighted sum of
 P_h(f,t) = \sum_i P_h(i,t)P_h(f|i,t).
 \end{equation}
 
-$P_h(i,t)$ and $P_h(f|i,t)$ respectively represent the energy and the normalized harmonic spectra of a musical note of pitch $i$ at time $t$. We further model $P_h(f|i,t)$ as a linear combination of $Z$ fixed narrow-band harmonic kernels, sharing the same fundamental frequency $i$ and having energy concentrated on the $z^{th}$ harmonic:
-%$P_h(i,t)$ is the note's energy at time $t$ and $P_h(f|i,t)$ is its normalized harmonic spectrum. Each harmonic spectrum is decomposed as a linear combination of $Z$ narrow-band harmonic kernels sharing the same fundamental frequency $i$ and having energy concentrated on the $z^{th}$ harmonic $P_h(f|z,i)$, weighted by its spectral envelope $P_h(z|i,t)$:
+$P_h(i,t)$ and $P_h(f|i,t)$ respectively represent the energy and the normalised harmonic spectra of a musical note of pitch $i$ at time $t$. We further model $P_h(f|i,t)$ as a linear combination of $Z$ fixed narrow-band harmonic kernels, sharing the same fundamental frequency $i$ and having energy concentrated on the $z^{th}$ harmonic:
+%$P_h(i,t)$ is the note's energy at time $t$ and $P_h(f|i,t)$ is its normalised harmonic spectrum. Each harmonic spectrum is decomposed as a linear combination of $Z$ narrow-band harmonic kernels sharing the same fundamental frequency $i$ and having energy concentrated on the $z^{th}$ harmonic $P_h(f|z,i)$, weighted by its spectral envelope $P_h(z|i,t)$:
 
 \begin{align}
 P_h(f|i,t) & = \sum_z P_h(z|i,t)P_h(f|z,i) \\
 P_h(f|i,t) & = \sum_z P_h(z|i,t)P_h(f-i|z).
+\label{cqt_prop}
 \end{align}
 %\begin{equation}
 %\begin{array}{ll}
@@ -138,7 +139,7 @@ P_h(f|i,t) & = \sum_z P_h(z|i,t)P_h(f-i|z).
 %		   & = \sum_z P_h(z|i,t)P_h(f-i|z)
 %\end{array}
 %\end{equation}
-In this last equation, an essential property of the CQT is exploited: a pitch modulation can be seen as a frequency shifting of the partials, and the kernel $P_h(f|z,i)$ can be deduced from a single template $P_h(\mu|z)$.
+In equation \ref{cqt_prop}, an essential property of the CQT is exploited: a pitch modulation can be seen as a frequency shifting of the partials, and the kernel $P_h(f|z,i)$ can be deduced from a single template $P_h(\mu|z)$.
 All parameters, except for the fixed kernels $P_h(\mu|z)$, are estimated with the Expectation-Maximization (EM) algorithm. By mean of a threshold applied on the time-frequency activations of harmonic spectra $P_h(i,t)$, it is then possible to estimate a MIDI pitch activations $\hat{A}(n,t)$ ($n$ representing MIDI notes) and thus address the problem of multipitch estimation.
 %In this last equation it's used the main advantage of working with the CQT: a pitch modulation can be seen as a frequency shifting of the partials: $P_h(f|z,i) = P_h(f-i|z)$.
 
@@ -155,7 +156,7 @@ All parameters, except for the fixed kernels $P_h(\mu|z)$, are estimated with th
 \label{sec:init-prior}
 
 %We want to estimate the following parameters: $\Lambda = \left \lbrace P(c), P_h(i,t), P_h(z|i,t), P_n(i,t) \right \rbrace$. Since this is an iterative optimization algorithm, the parameters initialisation plays a very important role in the quality of the decomposition.
-Relevant initialisation can be seen as adding prior knowledge since parameters will likely converge toward a local optimum close to the initialisation.
+Relevant initialisation can be seen as adding prior knowledge since parameters will likely converge towards a local optimum close to the initialisation.
 %Therefore, in order to obtain a relevant decomposition, it is important that the parameters that will be estimated are well initialised.
 In \cite{Fuentes2013_PhD} it is proposed that the spectral envelope coefficients $P_h(z|i,t)$ for the notes of pitch $i$ and time $t$ are initialised as a descending slope in $z$, as often for musical instruments an energy decay of the partials in function of their frequency is observed.
 
@@ -188,12 +189,12 @@ It is expected that involving the user in the transcription process should impro
 
 \subsection{Strategies for initialisation of the non-annotated notes}
 
-Unless if the music is highly repetitive, the note present in the first ten seconds only represent a subset of all notes played in the musical recording. The envelope templates of the remaining notes cannot be learned but still have to be initialised to some value before the BHAD algorithm is run. We evaluate below three strategies for initialising the templates of the remaining notes:
+Except when the music is highly repetitive, the note present in the first ten seconds only represent a subset of all notes played in the musical recording. The envelope templates of the remaining notes cannot be learned but still have to be initialised to some value before the BHAD algorithm is run. We evaluate below three strategies for initialising the templates of the remaining notes:
 
 \begin{enumerate}
 \item Keep the slope initialisation as in the original BHAD model: in this case we just consider the templates if they can be obtained from the learning phase, otherwise the spectral coefficients are initialised as a descending slope in $z$;
 \item Copy the previous note template: the template of a note of given pitch $i_n$ is repeated for all subsequent notes of pitch $i \in [i_{n+1}, i_{p-1}]$ until another template is found (note of pitch $i_p$);
-\item Interpolate neighbour notes' templates: the template for the notes of pitch $i \in [i_{n+1}, i_{p-1}]$ are obtained by linearly interpolating the templates of the notes of pitch $i_n$ and $i_p$ (on a dB scale).
+\item Interpolate neighbour notes' templates: the template for the notes of pitch $i \in [i_{n+1}, i_{p-1}]$ is obtained by linearly interpolating the templates of the notes of pitch $i_n$ and $i_p$ (on a dB scale).
 \end{enumerate}
 
 \subsection{Strategies for controlling the convergence rate of the annotated notes vs. non-annotated notes}
@@ -238,8 +239,8 @@ $$\mathcal{P}  = \frac{\sum_{n,t}\hat{A}(n,t)A(n,t)}{\sum_{n,t}\hat{A}(n,t)}, \q
 
 \vspace{0.2cm}
 
-We used the QUASI-Transcription database elaborated under the QUAERO\footnote{\url{http://www.quaero.org}} project and \cite{Fuentes2013_PhD}. It contains pieces of contemporary music, belonging to different genres with a high degree of polyphony (see table \ref{tab:quaero} which details the characteristics of each song in the database). The instruments are a mixture of virtual (e.g. synthetic) and acoustic instruments. For virtual instruments, transcripts were obtained from the corresponding MIDI file, while for acoustic instruments, they were manually transcribed.
-The database is split in two : a training database built from the first 10s of each file and a test database  which gathers the remaining part of all songs. All results are given on the test database.
+We used the QUASI-Transcription database elaborated under the QUAERO\footnote{\url{http://www.quaero.org}} project and \cite{Fuentes2013_PhD}. It contains pieces of contemporary music, belonging to different genres with a high degree of polyphony (see table \ref{tab:quaero}, which details the characteristics of each song in the database). The instruments are a mixture of virtual (e.g. synthetic) and acoustic instruments. For virtual instruments, transcripts are obtained from the corresponding MIDI file, while for acoustic instruments, they are manually transcribed.
+The database is split in two: a training database built from the first 10s of each file and a test database  which gathers the remaining part of all songs. All results are given on the test database.
 
 \begin{table}[htb]
 \centering
@@ -284,7 +285,7 @@ We compared the algorithm performances for the unsupervised and semi-guided appr
 
 The results of these tests are shown in Figure \ref{fig:fxt-nobrake} and Table \ref{tab:init}. The best results for the options without the brake (e.g. options NO, S, R and SR), obtained with the semi-guided approach with slope initialisation of the non-annotated notes are presented in Figure \ref{fig:fxt-nobrake} for a range of detection threshold values. In this Figure, the continuous lines correspond to the unsupervised approach and the lines with symbols correspond to the user-guided approach.  It can be noticed that the user inputs bring a systematic performance increase regardless of the detection threshold value.
 
-The table gathers the results obtained \textit{a posteriori}, that is with a choice of the detection threshold that maximises the algorithm's performance for each combination of priors and brake on the entire test database.
+The table gathers the results obtained \textit{a posteriori}, i.e., with a choice of the detection threshold that maximises the algorithm's performance for each combination of priors and brake on the entire test database.
 
 \vspace{0.2cm}
 
@@ -302,7 +303,7 @@ The table gathers the results obtained \textit{a posteriori}, that is with a cho
  RB  & 77.39 &	 \textbf{79.49} &	 73.89 &	 50.79 \\
  RSB & 74.85 &	 \textbf{77.02} &	 70.52 & 	 47.00  \\\thickhline
 \end{tabular}
-\caption{Mean F-Measure for the semi-guided and unsupervised approaches, considering the different initialisations of the non-annotated notes (Slope, Copy and Interpolation) and the different options of the BHAD algorithm : sparseness (S) and resemblance (R) priors, convergence rate parameter (brake B); Option NO refers to no prior and no brake.}
+\caption{Mean F-Measure for the semi-guided and unsupervised approaches, considering the different initialisations of the non-annotated notes (Slope, Copy and Interpolation) and the different options of the BHAD algorithm: sparseness (S) and resemblance (R) priors, convergence rate parameter (brake B); Option NO refers to no prior and no brake.}
 \label{tab:init}
 \end{table}
 
@@ -311,7 +312,7 @@ The results in Table \ref{tab:init} show that the use of the semi-guided approac
 
 Using copied spectral envelope templates as initialisation for non-annotated notes introduces a bias in the estimation task by assuming that all the notes are present. As the algorithm starts with a calculated spectral envelope instead of a simple slope in $z$, it causes the algorithm to assume that these notes are present (smaller precision when compared to the unsupervised approach). Templates obtained by interpolating adjacent notes presented the worst results since in this case besides introducing the copy initialisation bias, the templates were not really learned as in the previous case.
 
-Regarding the different strategies for controlling the convergence rate of the annotated notes, we tested two cases:
+Regarding the different strategies for controlling the convergence rate of the annotated notes, two cases are tested:
 
 \begin{enumerate}
 \item The brake coefficient is only applied to annotated notes ($\beta_0=0$);
@@ -369,7 +370,7 @@ The results in Table \ref{tab:brake}.(a) show that when we apply the brake coeff
 As highlighted in an international evaluation campaign, the original BHAD algorithm is a powerful approach for multipitch extraction of music recordings. Since it is entirely unsupervised, it relies on a very generic model for the initial estimation of the notes spectral templates.
 It is shown in this paper that a substantial gain in performance can be obtained with the introduction of a learning step with a partial user annotation of even a small part of the song (first $ 10$ seconds). This partial annotation allows for a better initialisation of the model parameters by using learned spectral envelope models for the notes that are present in the annotation. The experiments have shown that this partial annotation can lead to an improvement of up to $3\%$ in terms of F-measure in a task of multipitch estimation. It was also shown that a fine control of the convergence rate of these learned models helps to better exploit this additional information.
 
-Future work will be dedicated to the investigation of alternative strategies for optimizing the user annotation effort, for example by rather annotating specific parts of the song such as the main melody, the bass line or one of the chorus of the song. Another strategy would involve the user in a more iterative way for example letting the user transcribe the segments where the algorithm is the least confident.
+Future work will be dedicated to the investigation of alternative strategies for optimizing the user annotation effort, for example, by rather annotating specific parts of the song such as the main melody, the bass line or one of the chorus of the song. Another strategy would involve the user in a more iterative way for example letting the user transcribe the segments where the algorithm is the least confident.
 
 
 %\vfill\pagebreak
