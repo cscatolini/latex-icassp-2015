@@ -36,7 +36,7 @@
 \maketitle
 %
 \begin{abstract}
-In this paper one investigates the merit of partial user annotation for music transcription using a PLCA-based model. The original algorithm, called Blind Harmonic Adaptive Decomposition (BHAD), provides an estimation of the polyphonic pitch content of the input signal in an entirely unsupervised manner. In this paper, one studies how the performances of the BHAD algorithm can be further improved by involving a user by means of a partial annotation. This user input allows for a better model initialisation with adapted or learned spectral envelope models. Furthermore, it is studied how a fine control of the convergence rate of some parameters can better exploit this additional information. It is then shown that this partial annotation can bring an improvement of up to 3\% on the transcription of the remaining file.
+In this paper one investigates the merit of partial user annotation for music transcription using a PLCA-based model. The original algorithm, called Blind Harmonic Adaptive Decomposition (BHAD), provides an estimation of the polyphonic pitch content of the input signal in an entirely unsupervised manner. In this paper, one studies how the performance of the BHAD algorithm can be further improved by involving a user by means of a partial annotation. This user input allows for a better model initialisation with adapted or learned spectral envelope models. Furthermore, it is studied how a fine control of the convergence rate of some parameters can better exploit this additional information. It is then shown that this partial annotation can bring an improvement of up to 3\% on the transcription of the remaining file.
 \end{abstract}
 %
 \begin{keywords}
@@ -78,7 +78,7 @@ PLCA is a probabilistic tool for non-negative data decomposition, where the time
 
 \vspace{0.1cm}
 
-An algorithm called Blind Harmonic Adaptive Decomposition (BHAD) and its inherent model are presented in \cite{Fuentes2012_EUSIPCO, Fuentes2013_PhD} to better model real music signals. In this model, each musical note may present fundamental frequency and spectral envelope variations across repetitions. BHAD is an efficient algorithm and has obtained very good performances in an international evaluation campaign (ranked 2\textsuperscript{nd} in the MIREX-12 Multiple Fundamental Frequency Estimation \& Tracking task \cite{MIREX2012}).
+An algorithm called Blind Harmonic Adaptive Decomposition (BHAD) and its inherent model are presented in \cite{Fuentes2012_EUSIPCO, Fuentes2013_PhD} to better model real music signals. In this model, each musical note may present fundamental frequency and spectral envelope variations across repetitions. BHAD is an efficient algorithm and has obtained very good performance in an international evaluation campaign (ranked 2\textsuperscript{nd} in the MIREX-12 Multiple Fundamental Frequency Estimation \& Tracking task \cite{MIREX2012}).
 %It uses the absolute value of the CQT of an audio signal as the time-frequency representation and its decompositions and parameters are found using the Expectation-Maximization (EM) algorithm.
 The original approach is entirely unsupervised as most approaches in this framework which rely on prior generic information or signal models to obtain a semantically meaningful decomposition. It was shown in some controlled cases that improved performance can be obtained by integrating a learning stage or by adapting the pre-learned models using a multi-stage transcription strategy (see \cite{BenetosISMIR2014} for example) or by involving a user during the transcription process \cite{Kirchhoff13}, \cite{ozerov2012general}, \cite{BryanEtAl_2013_SourSepaOfPoly}.
 
@@ -185,22 +185,22 @@ In addition to relevant parameters initialisation, priors are used to integrate 
 %\end{enumerate}
 
 %\subsection{Manual annotation}
-It is expected that involving the user in the transcription process should improve the overall transcription performances. In this paper, one evaluates a rather simple interaction process where the user has manually transcribed beforehand the first ten seconds of each processed musical recording. This partial transcription is then used to create initial templates of the spectral envelope $P(z|i,t)$ for each note of pitch $i$. If a note appears more than once in these first ten seconds, the template is obtained by averaging all occurrences of this given note for each kernel $z \in \left[1,Z\right]$. The transcription algorithm BHAD is then run as in the unsupervised case but with an improved initial estimation of, at least, some of the spectral envelopes $P(z|i,t)$.
+It is expected that involving the user in the transcription process should improve the overall transcription performance. In this paper, one evaluates a rather simple interaction process where the user has manually transcribed beforehand the first ten seconds of each processed musical recording. This partial transcription is then used to create initial templates of the spectral envelope $P(z|i,t)$ for each note of pitch $i$. If a note appears more than once in these first ten seconds, the template is obtained by averaging all occurrences of this given note for each kernel $z \in \left[1,Z\right]$. The transcription algorithm BHAD is then run as in the unsupervised case but with an improved initial estimation of, at least, some of the spectral envelopes $P(z|i,t)$.
 
 \subsection{Strategies for initialisation of the non-annotated notes}
 
-Except when the music is highly repetitive, the note present in the first ten seconds only represent a subset of all notes played in the musical recording. The envelope templates of the remaining notes cannot be learned but still have to be initialised to some value before the BHAD algorithm is run. One evaluates below three strategies for initialising the templates of the remaining notes:
+Except when the music is highly repetitive, the notes present in the first ten seconds only represent a subset of all notes played in the musical recording. The envelope templates of the remaining notes cannot be learned but still have to be initialised to some value before the BHAD algorithm is run. One evaluates below three strategies for initialising the templates of the remaining notes:
 
 \begin{enumerate}
 \item Keep the slope initialisation as in the original BHAD model: in this case one just considers the templates if they can be obtained from the learning phase, otherwise the spectral coefficients are initialised as a descending slope in $z$;
-\item Copy the previous note template: the template of a note of given pitch $i_n$ is repeated for all subsequent notes of pitch $i \in [i_{n+1}, i_{p-1}]$ until another template is found (note of pitch $i_p$);
+\item Copy the previous note template: the template of a note of a given pitch $i_n$ is repeated for all subsequent notes of pitch $i \in [i_{n+1}, i_{p-1}]$ until another template is found (note of pitch $i_p$);
 \item Interpolate neighbour notes' templates: the template for the notes of pitch $i \in [i_{n+1}, i_{p-1}]$ is obtained by linearly interpolating the templates of the notes of pitch $i_n$ and $i_p$ (on a dB scale).
 \end{enumerate}
 
 \subsection{Strategies for controlling the convergence rate of the annotated notes vs. non-annotated notes}
 
-The goal of the learning phase using the partial user annotation is to improve the initial estimation of the spectral envelopes. If envelope parameters are well initialised, it is probable that their value are not very far from the ideal envelope templates.  It is then desirable to exploit this information to control the convergence rate of this parameter compared to other parameters of the models which are less well initialised. With BHAD, the convergence rate is controlled using the concept of brake (see section \ref{sec:init-prior} or \cite{Fuentes2012_EUSIPCO}). In the original BHAD model the convergence rate coefficient is equally applied to all note's templates to slow down their convergence compared to the other parameters of the model.  %However, even tough we have realized a better initialisation for the notes present in the learning phase, the other notes may not be as well initialised, for example, if we keep slope initialisation.
-One suggests a modification of the BHAD model where the convergence rate coefficient $\beta_{brake}(n)$ now depends on the notes, so one can apply a stronger brake for the templates of the notes which were actually learned:
+The goal of the learning phase using the partial user annotation is to improve the initial estimation of the spectral envelopes. If the envelope parameters are well initialised, it is probable that their value are not very far from the ideal envelope templates.  It is then desirable to exploit this information to control the convergence rate of this parameter compared to other parameters of the model which are less well initialised. With BHAD, the convergence rate is controlled using the concept of brake (see section \ref{sec:init-prior} or \cite{Fuentes2012_EUSIPCO}). In the original BHAD model the convergence rate coefficient is equally applied to all notes' templates to slow down their convergence compared to the other parameters of the model.  %However, even tough we have realized a better initialisation for the notes present in the learning phase, the other notes may not be as well initialised, for example, if we keep slope initialisation.
+One suggests a modification of the BHAD model where the convergence rate coefficient $\beta_{brake}(n)$ now depends on the notes $n$, so one can apply a stronger brake for the templates of the notes which were actually learned:
 
 \begin{equation}
 \beta_{brake}(n) = \left\{
@@ -290,6 +290,7 @@ The table gathers the results obtained \textit{a posteriori}, i.e., with a choic
 \vspace{0.2cm}
 
 \begin{table}[htb]
+\centering
 \begin{tabular}{ccccc}
 \hline
 \textbf{Options} & \textbf{Unsupervised} & \multicolumn{3}{c}{\textbf{Semi-Guided}} \\\thickhline
@@ -336,7 +337,7 @@ RSB	& 72,30 &	 72,35 	& 72,53 &	 \textbf{72,66} \\\thickhline
 \\%
 \vspace{0.1cm}
 
-\centering
+
  \begin{tabular}{ccccc}
  \hline
 \textbf{Option} & \textbf{Even brake} & \multicolumn{3}{c}{\textbf{Brake all notes ($\beta_0=10$)}} \\\thickhline
