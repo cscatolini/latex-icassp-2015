@@ -1,7 +1,7 @@
 VIEWER	=	@gnome-open
 LATEX	=	@pdflatex
-OUT		=	Andrade-icassp2014
-IN		=	Andrade-icassp2014
+OUT		=	andrade_icassp2015
+IN		=	andrade_icassp2015
 FMT		=	pdf
 ARGS	=	-shell-escape -enable-write18 -synctex=1 -interaction=nonstopmode
 
